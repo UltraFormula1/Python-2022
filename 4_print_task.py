@@ -7,7 +7,7 @@ print("Kings High School")
 #4 Print out my age
 print("15")
 #5 Print out how many hours I have on my favourite game
-print("140.6 Hours on Assetto Corsa")
+print("144.5 Hours on Assetto Corsa")
 #6 Print out the year it will be in 25 years
 print(2022+25)
 #7 Print out your age in 100 years
