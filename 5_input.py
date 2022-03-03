@@ -39,7 +39,7 @@ pizza = int(input("How many pizza's would you like?"))
 #19
 people = int(input("How many people want pizza?"))
 #20
-print(f"you're friends will each get {pizza*8//friends} and have {pizza*8%friends} remaining")
+print(f"you're friends will each get {pizza*8//friends} slices and have {pizza*8%friends} remaining")
 #21
 dollars = int(input("How much money do you have?"))
 #22
@@ -50,3 +50,23 @@ print(f"You will have {dollars - TV} left after purchasing the TV")
 print(f"The TV will be {0.8*TV} while on a 20% off sale")
 #25
 bitcoin_amount = int(input("How much Bitcoin do you have?"))
+#26
+bitcoin_value = 64742
+#27
+print(f"Your bitcoin portfolio is worth {bitcoin_value*bitcoin_amount}.")
+#28
+weekly_wage = int(input("How much do you earn each week?"))
+#29
+tax_rate = int(input("What is the current tax rate?"))
+#30
+print(f"You will take home {weekly_wage*(1-tax_rate)} every week after paying taxes")
+#31
+book_name = input("Type in the name of a book you've read")
+#32
+print(book_name.lower())
+print(book_name.upper())
+print(book_name.title())
+#33
+number = int(input("Giuve me a number"))
+#34
+print("book_name"*number)
