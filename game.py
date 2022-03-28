@@ -13,9 +13,9 @@ hall_1 = Room("You are at the start of a long hallway, there are exits around yo
 hall_2 = Room("You are now standing at the end of the hallway with 3 exits around you. One of the doors are locked, this could possibly lead to the bathroom. what apperars to be an ID card is hiding underneath the carpet you are standing on")
 dining_room = Room("You are now in the dining room, and in the corner is the the brand new luxury of the TV. You have only seen these in the most rich of houses. There is a coffee table which appears to be on an angle about to fall over, maybe there is a body underneath there. On the coffee table is a phone that is looping some unresponded calls from 3 people. There is also a small, long yet thin object on the ground")
 bedroom = Room("You make your way over to the bedroom of Weber, and already there is a lot to look at. The bed is neatly tidied, the bookshelf is all ordered, and all seems orderly. But as you start to investigate the bookshelf, 2 books fall off that both could provide information.")
-bathroom = Room("After you unlock the bathroom door, you notice that this seems to be the one room where the murderer was sloppy in hiding their clues. In the sink there is some hair near a razor, indicating someone shaved here. Also there is a soaked piece of paper in the toilet")
+bathroom = Room("After you unlock the bathroom door, you notice that this seems to be the one room where the murderer was sloppy in hiding any clues that they might've created. In the sink there is some hair near a razor, indicating someone shaved here. Also there is a soaked piece of paper in the toilet")
 kitchen = Room("You make into the kitchen, and the floor is full of broken glass and open drawers. However one drawer labelled knives is closed, leading you to wonder what could be in it")
-laundry_room = Room("When you make it to the laundry room, it is so dark that you can't use your notebook, however you can make out some shape on the floor under some unhung clothes")
+laundry_room = Room("When you make it to the laundry room, it is so dark that you can't use your notebook, however you can make out some shape on the floor under some unhung clothes, there also seems to be another id card inside one of the washing machines")
 balcony = Room("You arrive on the apartment balcony and you get a good view over Detroit, sirens whail in the distance and gunshots fire as you see your fellow officers on another arrest. You also see a medium sized brown haired person limp by and he looks up at Weber's old apartment for a second with a suspicious look. You can't find any clues here.")
 #######################################
 #DEFINE CONNECTIONS
@@ -47,8 +47,8 @@ hair.description = "You investigate the hair shavings and find that they are of 
 folder = Item("file", "files", "employee lst")
 folder.description = "You browse through the employee list, nothing seems to be suspicious."
 id_card2 = Item("second card", "id card 2", "second id card", "2nd id card", "card 2")
-id_card2.description = "As you attempt to read what the id card says, it appears to have another fake name. This could mean that the suspect has multiple backup id cards at the ready."
-key = Item("object", "mysterious item", "item", "key", "bathroom key")
+id_card2.description = "The card is very wet and soggy, the washing liquid has almost detroyed the things. But you attempt to read what the id card says anyway, and it appears to have another fake name. This could mean that the suspect has multiple backup id cards at the ready."
+key = Item("object", "mysterious item", "item", "key", "bathroom key", "mysterious object", "unknown item")
 key.description = "This must be the key for the bathroom!"
 
 
@@ -69,6 +69,7 @@ kitchen.items.add(knife)
 bedroom.items.add(book)
 bedroom.items.add(diary)
 laundry_room.items.add(id_card2)
+laundry_room.items.add(key)
 
 #######################################
 #DEINIE VARIABLES
@@ -129,6 +130,20 @@ def get_item(item):
 		inventory.add(t)
 		print(f"You pick up the {item}")
 		print(t.description)
+		if t == knife:
+			current_room.description = ("You make into the kitchen, and the floor is full of broken glass and open drawers.")
+		if t == newspaper:
+			current_room.description = ("You are standing in a small room with a few potted plants on tables, and a picture of Weber hanging above.")
+		if t == id_card:
+			current_room.description = ("You are now standing at the end of the hallway with 3 exits around you. One of the doors are locked, this could possibly lead to the bathroom.")
+		if t == book or t == diary:
+			current_room.description = ("You make your way over to the bedroom of Weber, and already there is a lot to look at. The bed is neatly tidied, the bookshelf is all ordered, and all seems orderly.")
+		if t == folder:
+			current_room.description = ("You are at the start of a long hallway, there are exits around you on 4 sides including the way you just went. A massive shelf is to the side of you full of folders of information about the company.")
+		if t == knife:
+			current_room.description =
+		if t == knife:
+			current_room.description =
 
 	else:
 		print(f"You don't see an {item}")
@@ -137,6 +152,7 @@ def get_item(item):
 	if len(inventory) >= 5:
 		print("The phone starts ringing")
 		phone_ringing = True
+
 
 @when("inventory")
 def check_inventory():
@@ -182,10 +198,16 @@ def listen_phone():
 	if phone_ringing and current_room==dining_room and phone_listened == True:
 		print("Ah, good to see you. We are running out of time on this case, and we need to know who actually killed Weber. You'd better have an answer boy! Who did it?")
 		answer = input(">")
-		if answer.lower() == "benjamine rowe":
-			print("Alright, I'll look into it... \nYes, it does seem like he is the most likely suspect, thank you for giving us the clues neccesary to catch him! How about we go grab some doughnuts for the squad later, eh? \nYou win")
-		elif answer.lower() == "george chambers" or answer.lower() == "harvey gardner":
-			print("Okay I'll look into it... \n Um, pal? It looks like your data doesn't match the suspect that you have identified, but we don't have enough time for any more bulshit gueses! You're fired!")
+		while True:
+			if answer.lower() == "benjamine rowe":
+				print("Alright, I'll look into it... \nYes, it does seem like he is the most likely suspect, thank you for giving us the clues neccesary to catch him! How about we go grab some doughnuts for the squad later, eh? \nYou win")
+				break
+			elif answer.lower() == "george chambers" or answer.lower() == "harvey gardner":
+				print("Okay I'll look into it... \n Um, pal? It looks like your data doesn't match the suspect that you have identified, but we don't have enough time for any more bulshit gueses! You're fired! \nYou lose")
+				break
+			else:
+				print("Are you drunk or something, kiddo? That is NOT, and I repeat NOT a suspect!")
+		quit()
 
 	if current_room == dining_room and phone_listened == False:
 		print("You listen to the answerphones, two of them are just normal employees discussing about work, but the third answerphone is a heavily distorted message that is too distorted to listen to, but you can just make out the voice of Ben Rowe")
@@ -198,7 +220,7 @@ def listen_phone():
 
 @when("use ITEM")
 def use(item):
-	if item == key and current_room == hall_2:
+	if item == "key" and current_room == hall_2:
 		print("You use the key and the door opens with a squeak, probably needs to be oiled")
 		print("You can now go to the bathroom in the north")
 		used_key = True
@@ -212,7 +234,7 @@ def use(item):
 #MAIN FUNCTION
 #######################################
 def main():
-	print("The year is 1949, shortly after the war. You are a failing detective working for the Detroit Police Depatment and you are sent to a crime scene to investigate the murder of the owner of the Packard car company, Edward Weber, on the 13th of May. The murder took place at 7:00PM shortly after he returned to his home after a cerimonial dinner. The suspect has done well to hide their tracks, although some witnesses have lead to the police identifying three potential suspects. Harvey Gardner is a 25 year old brown haired man of medium size, with a large moustache and is currently working at rival company Chrysler. Benjamine Rowe is a 37 year old that looks similar to Gardner, but has a smaller moustache, and has a criminal activity, however, he works for Packard. George 'Youth' Chambers also works for the company, but he is a 19 year old criminal with black hair and no facial hair. You hope that this investigation will be your big break and will help you be recognised by the police for being the best of the best. But you only have a limited time to investigate the crime scene before the police base calls back, and you have to make the decision as to who killed Weber, one wrong call and you could be fired. \nYou make your way to the apartment...")
+	print("Detroit Noir Mystery \nThe year is 1949, shortly after the war. You are a failing detective working for the Detroit Police Depatment and you are sent to a crime scene to investigate the murder of the owner of the Packard car company, Edward Weber, on the 13th of May. The murder took place at 7:00PM shortly after he returned to his home after a cerimonial dinner. The suspect has done well to hide their tracks, although some witnesses have lead to the police identifying three potential suspects. Harvey Gardner is a 25 year old brown haired man of medium size, with a large moustache and is currently working at rival company Chrysler. Benjamine Rowe is a 37 year old that looks similar to Gardner, but has a smaller moustache, and has a criminal activity, however, he works for Packard. George 'Youth' Chambers also works for the company, but he is a 19 year old criminal with black hair and no facial hair. You hope that this investigation will be your big break and will help you be recognised by the police for being the best of the best. But you only have a limited time to investigate the crime scene before the police base calls back, and you have to make the decision as to who killed Weber, one wrong call and you could be fired. \nYou make your way to the apartment...")
 	print(current_room)
 	start()
 	#start the main loop
