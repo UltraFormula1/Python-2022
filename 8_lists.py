@@ -48,27 +48,27 @@ print(pizza_toppings)
 #7
 fruits = ['apple', 'banana', 'mandarin', 'grape', 'watermelon']
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 fruits.append(input("Type in a fruit"))
-if fruits[-1] == "":
+if fruits.lower([-1]) == "apple" or fruits.lower([-1]) == "banana" or fruits.lower([-1]) == "grape" or fruits.lower([-1]) == "mandarin" or fruits.lower([-1]) == "watermelon":
 	fruits.pop()
 	print("That is already in the list, dumbass")
 print(fruits)
@@ -79,3 +79,11 @@ print(names)
 names.reverse()
 print(names)
 #9
+prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71]
+prime.reverse()
+print(prime)
+print("The length of this list is", len(prime))
+#10
+verbs = ['tell', 'show', 'think', 'walk', 'eat', 'run', 'accept', 'die', 'dry']
+verbs.sort()
+print(verbs)
