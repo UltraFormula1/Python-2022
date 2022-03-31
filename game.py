@@ -46,10 +46,10 @@ hair = Item("hair", "razor", "shavings", "shaved hair")
 hair.description = "You investigate the hair shavings and find that they are of a light brown color, prbably closest to Harvey Gardner, but the lighting in the bathroom makes it hard to tell."
 folder = Item("file", "files", "employee lst")
 folder.description = "You browse through the employee list, nothing seems to be suspicious."
-id_card2 = Item("second card", "id card 2", "second id card", "2nd id card", "card 2")
-id_card2.description = "The card is very wet and soggy, the washing liquid has almost detroyed the things. But you attempt to read what the id card says anyway, and it appears to have another fake name. This could mean that the suspect has multiple backup id cards at the ready."
+id_card2 = Item("second card", "id card 2", "second id card", "2nd id card", "card 2", "id card", "card")
+id_card2.description = "The card is very wet and soggy, the washing liquid has almost detroyed the thing. But you attempt to read what the id card says anyway, and it appears to have another fake name. This could mean that the suspect has multiple backup id cards at the ready."
 key = Item("object", "mysterious item", "item", "key", "bathroom key", "mysterious object", "unknown item")
-key.description = "This must be the key for the bathroom!"
+key.description = "This must be an important key, keep it with you incase you find a use for it!"
 
 
 #######################################
@@ -82,6 +82,7 @@ used_key = False
 tv_watched = False
 phone_listened = False
 phone_ringing = False
+secret_word = False
 
 #######################################
 #BINDS (e.g "@when(look)")
@@ -93,7 +94,10 @@ phone_ringing = False
 @when("read notebook")
 @when("read notes")
 def notes():
-	print("Notes: Harvey Gardner is a 25 year old brown haired man of medium size, with a large moustache and is currently working at rival company Chrysler. Benjamine Rowe is a 37 year old that looks similar to Gardner, but has a smaller moustache, and has a criminal activity, however, he works for Packard. George 'Youth' Chambers also works for the company, but he is a 19 year old criminal with black hair and no facial hair.")
+	if current_room == laundry_room:
+		print("You can't read your notes here.")
+	else:
+		print("Notes: Harvey Gardner is a 25 year old brown haired man of medium size, with a large moustache and is currently working at rival company Chrysler. Benjamine Rowe is a 37 year old that looks similar to Gardner, but has a smaller moustache, and has a criminal activity, however, he works for Packard. George 'Youth' Chambers also works for the company, but he is a 19 year old criminal with black hair and no facial hair.")
 
 
 @when("go DIRECTION")
@@ -123,6 +127,7 @@ def look():
 @when("get ITEM")
 @when("take ITEM")
 @when("pick up ITEM")
+@when("grab ITEM")
 def get_item(item):
 	global phone_ringing
 	if item in current_room.items:
@@ -136,15 +141,18 @@ def get_item(item):
 			current_room.description = ("You are standing in a small room with a few potted plants on tables, and a picture of Weber hanging above.")
 		if t == id_card:
 			current_room.description = ("You are now standing at the end of the hallway with 3 exits around you. One of the doors are locked, this could possibly lead to the bathroom.")
-		if t == book or t == diary:
+		if "book" in inventory or "diary" in inventory and current_room == bedroom:
 			current_room.description = ("You make your way over to the bedroom of Weber, and already there is a lot to look at. The bed is neatly tidied, the bookshelf is all ordered, and all seems orderly.")
 		if t == folder:
 			current_room.description = ("You are at the start of a long hallway, there are exits around you on 4 sides including the way you just went. A massive shelf is to the side of you full of folders of information about the company.")
-		if t == knife:
-			current_room.description =
-		if t == knife:
-			current_room.description =
-
+		if t == hair:
+			current_room.description = ("You enter the bathroom")
+		if t == id_card2:
+			current_room.description = ("When you make it to the laundry room, it is so dark that you can't use your notebook, however you can make out some shape on the floor under some unhung clothes")
+		if t == key:
+			current_room.description = ("When you make it to the laundry room, it is so dark that you can't use your notebook. There seems to be another id card inside one of the washing machines")
+		if "key" in inventory and "id card 2" in inventory and current_room == laundry_room:
+			current_room.description = ("When you make it to the laundry room, it is so dark that you can't use your notebook.")
 	else:
 		print(f"You don't see an {item}")
 
@@ -200,7 +208,7 @@ def listen_phone():
 		answer = input(">")
 		while True:
 			if answer.lower() == "benjamine rowe":
-				print("Alright, I'll look into it... \nYes, it does seem like he is the most likely suspect, thank you for giving us the clues neccesary to catch him! How about we go grab some doughnuts for the squad later, eh? \nYou win")
+				print("Alright, I'll look into it... \nYes, it does seem like he is the most likely suspect, thank you for giving us the clues neccesary to catch him! How about we go grab some doughnuts for the squad later, eh? \nYou win! But did you find the secret word?")
 				break
 			elif answer.lower() == "george chambers" or answer.lower() == "harvey gardner":
 				print("Okay I'll look into it... \n Um, pal? It looks like your data doesn't match the suspect that you have identified, but we don't have enough time for any more bulshit gueses! You're fired! \nYou lose")
@@ -210,7 +218,7 @@ def listen_phone():
 		quit()
 
 	if current_room == dining_room and phone_listened == False:
-		print("You listen to the answerphones, two of them are just normal employees discussing about work, but the third answerphone is a heavily distorted message that is too distorted to listen to, but you can just make out the voice of Ben Rowe")
+		print("You listen to the answerphones, two of them are just normal employees discussing about work and are not suspects, but the third answerphone is a heavily distorted message that is too distorted to listen to, but you can just make out the voice of Ben Rowe")
 		tv_watched = True
 	elif current_room == dining_room and phone_listened == True:
 		print("The phone doesn't respond.")
@@ -228,6 +236,10 @@ def use(item):
 	else:
 		print("You can't use that here")
 
+@when("get back")
+def get_back():
+	print("congratulations, you typed in the secret phrase!")
+	secret_word = True
 
 
 #######################################
