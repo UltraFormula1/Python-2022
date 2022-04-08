@@ -8,6 +8,7 @@ from adventurelib import *
 #######################################
 Room.items = Bag()
 
+#These are room descriptions, they define a room's properties
 entrance = Room("You are standing in a small room with a few potted plants on tables, and a picture of Weber hanging above. There is a newspaper lying next to the plant that appears to be opened on a specific page")
 hall_1 = Room("You are at the start of a long hallway, there are exits around you on 4 sides including the way you just went. A massive shelf is to the side of you full of folders of information about the company. You see a segment labelled 'Employees' full of files.")
 hall_2 = Room("You are now standing at the end of the hallway with 3 exits around you. One of the doors are locked, this could possibly lead to the bathroom. what apperars to be an ID card is hiding underneath the carpet you are standing on")
@@ -20,6 +21,7 @@ balcony = Room("You arrive on the apartment balcony and you get a good view over
 #######################################
 #DEFINE CONNECTIONS
 #######################################
+#These define the connections for each room
 entrance.east = hall_1
 hall_1.east = hall_2
 hall_1.north = bedroom
@@ -32,6 +34,7 @@ dining_room.south = balcony
 #######################################
 #DEFINE ITEMS
 #######################################
+#This defines an item along with their description
 newspaper = Item("news", "newspaper", "paper", "Detroit Free Press")
 newspaper.description = "You pick up the newspaper and scan through the headlines. Packard Motor Car Company celebrates 10 years of management by Edward Weber as sales pass Chrysler for the first time in 2 years"
 knife = Item("knife", "bloody knife", "knife with blood")
@@ -203,11 +206,11 @@ def watch_tv():
 @when("listen to answerphone")
 def listen_phone():
 	global phone_listened
-	if phone_ringing and current_room==dining_room and phone_listened == True:
+	if phone_ringing and current_room == dining_room and phone_listened == True:
 		print("Ah, good to see you. We are running out of time on this case, and we need to know who actually killed Weber. You'd better have an answer boy! Who did it?")
-		answer = input(">")
 		while True:
-			if answer.lower() == "benjamine rowe":
+			answer = input(">")
+			if answer.lower() == "benjamine rowe" and secret_word == False:
 				print("Alright, I'll look into it... \nYes, it does seem like he is the most likely suspect, thank you for giving us the clues neccesary to catch him! How about we go grab some doughnuts for the squad later, eh? \nYou win! But did you find the secret word?")
 				break
 			elif answer.lower() == "george chambers" or answer.lower() == "harvey gardner":
@@ -215,56 +218,18 @@ def listen_phone():
 				break
 			elif answer.lower() == "benjamine rowe" and secret_word == True:
 				say("""
-					The Beatles Get Back
-
-					Jo Jo was a man who thought he was a loner
-					But he knew it couldn't last
-					Jo Jo left his home in Tucson, Arizona
-					For some California grass
-
-					Get back, get back
-					Get back to where you once belonged
-					Get back, get back
-					Get back to where you once belonged
-					Get back Jo Jo
-					Go home
-
-					Get back, get back
-					Get back to where you once belonged
-					Get back, get back
-					Back to where you once belonged
-					Get back, Jo
-
-					Sweet Loretta Martin thought she was a woman
-					But she was another man
-					All the girls around her say she's got it coming
-					But she gets it while she can
-
-					Oh, get back, get back
-					Get back to where you once belonged
-					Get back, get back
-					Get back to where you once belonged
-					Get back, Loretta
-
-					Go home
-					Oh, get back, get back
-					Get back to where you once belonged
-					Get back, get back
-					Get back to where you once belonged
-
-					Get back
-					Woo...
-
-					I'd like to say thank you on behalf of the group and ourselves, and I hope we've passed the audition!
+					Mah boi, this peace is what all true warriors strive for! But I guess caputring a criminal such as him is good enough as well
+					Well done lad! Lets go get some donuts! \n You win and you've found the secret phrase! \n Your reward? A slightly changed ending!
 					""")
 				break
 			else:
 				print("Are you drunk or something, kiddo? That is NOT, and I repeat NOT a suspect!")
+
 		quit()
 
 	if current_room == dining_room and phone_listened == False:
 		print("You listen to the answerphones, two of them are just normal employees discussing about work and are not suspects, but the third answerphone is a heavily distorted message that is too distorted to listen to, but you can just make out the voice of Ben Rowe")
-		tv_watched = True
+		phone_listened = True
 	elif current_room == dining_room and phone_listened == True:
 		print("The phone doesn't respond.")
 	else:
@@ -281,8 +246,9 @@ def use(item):
 	else:
 		print("You can't use that here")
 
-@when("get back")
-def get_back():
+@when("mah boi")
+def mah_boi():
+	global secret_word
 	print("congratulations, you typed in the secret phrase!")
 	secret_word = True
 
