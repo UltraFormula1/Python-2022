@@ -177,6 +177,7 @@ def check_inventory():
 @when("search man")
 @when("search table")
 @when("search coffee table")
+@when("inspect body")
 def search_body():
 	global body_searched
 	if current_room == dining_room and body_searched == False:
