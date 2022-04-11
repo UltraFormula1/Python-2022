@@ -204,6 +204,8 @@ def watch_tv():
 @when("listen to phone")
 @when("listen to telephone")
 @when("listen to answerphone")
+@when("pick up phone")
+@when("pick up telephone")
 def listen_phone():
 	global phone_listened
 	if phone_ringing and current_room == dining_room and phone_listened == True:
@@ -262,4 +264,4 @@ def main():
 	start()
 	#start the main loop
 
-main()
+main()     
